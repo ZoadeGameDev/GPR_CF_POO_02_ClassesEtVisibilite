@@ -37,6 +37,10 @@ public:
     bool courir()
     {
         // TODO : verifier l'endurance, la depenser, renvoyer le bon resultat.
+        if (endurance_ > 9) {
+            endurance_ -= 10;
+            return true;
+        }
         return false;
     }
 
@@ -45,6 +49,7 @@ public:
     void seReposer()
     {
         // TODO
+        endurance_ = enduranceMax_;
     }
 
     // -------------------------------------------------------- 3. ouvrir porte
@@ -54,6 +59,10 @@ public:
     bool ouvrirPorte()
     {
         // TODO
+        if (cles_ > 0) {
+            cles_ -= 1;
+            return true;
+        }
         return false;
     }
 
@@ -64,6 +73,10 @@ public:
     bool acheter(int prix)
     {
         // TODO
+        if (or_ > prix-1) {
+            or_ -= prix;
+            return true;
+        }
         return false;
     }
 
@@ -72,6 +85,14 @@ public:
     void subirDegats(int degats)
     {
         // TODO
+        vie_ -= degats;
+        if (vie_ < 0) {
+            vie_ = 0;
+        }
+        //Un peu bizarre? Le code pour subir des degats va donner aussi de la vie?
+        else if (vie_ > vieMax_) {
+            vie_ = vieMax_;
+        }
     }
 
     // --------------------------------------------------------------- lecture
@@ -80,7 +101,9 @@ public:
     bool estVivant() const
     {
         // TODO
-        return true;
+        if (vie_ > 0) {
+            return true;
+        }
     }
 
     void afficherFiche() const
